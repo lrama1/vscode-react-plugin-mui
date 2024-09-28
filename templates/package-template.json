@@ -1,5 +1,5 @@
 {
-    "name": "health-insurance-app",
+    "name": "{{projectName}}",
     "private": true,
     "version": "0.0.0",
     "type": "module",
