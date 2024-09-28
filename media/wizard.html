@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Wizard</title>
+    <link rel="stylesheet" type="text/css" href="">
+</head>
+<body>
+    <h1>Project Wizard</h1>
+    <form id="wizardForm">
+        <label for="projectName">Project Name:</label>
+        <input type="text" id="projectName" name="projectName" required><br><br>
+        <label for="domainName">Domain Name:</label>
+        <input type="text" id="domainName" name="domainName" required><br><br>
+        <h2>Domain Attributes</h2>
+        <table id="attributesTable">
+            <tr>
+                <th>Attribute Name</th>
+                <th>Data Type</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="attributeName"></td>
+                <td>
+                    <select name="dataType">
+                        <option value="String">String</option>
+                        <option value="Number">Number</option>
+                        <option value="Boolean">Boolean</option>
+                        <option value="Date">Date</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <button type="button" onclick="addRow()">Add Attribute</button><br><br>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        const vscode = acquireVsCodeApi();
+
+        document.getElementById('wizardForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const projectName = document.getElementById('projectName').value;
+            const domainName = document.getElementById('domainName').value;
+            const attributes = [];
+            const rows = document.querySelectorAll('#attributesTable tr');
+            rows.forEach((row, index) => {
+                if (index > 0) { // Skip header row
+                    const attributeName = row.querySelector('input[name="attributeName"]').value;
+                    const dataType = row.querySelector('select[name="dataType"]').value;
+                    if (attributeName && dataType) {
+                        attributes.push({ attributeName, dataType });
+                    }
+                }
+            });
+            vscode.postMessage({
+                command: 'submit',
+                projectName,
+                domainName,
+                attributes
+            });
+        });
+
+        function addRow() {
+            const table = document.getElementById('attributesTable');
+            const newRow = table.insertRow();
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            cell1.innerHTML = '<input type="text" name="attributeName">';
+            cell2.innerHTML = '<select name="dataType"><option value="String">String</option><option value="Number">Number</option><option value="Boolean">Boolean</option></select>';
+        }
+    </script>
+</body>
+</html>
