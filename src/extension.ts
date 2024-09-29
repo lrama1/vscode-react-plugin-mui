@@ -89,8 +89,8 @@ async function generateFiles(projectName: string, domainName: string, attributes
         fs.mkdirSync(projectDir, { recursive: true });
     }
 
-    // Read all template files
-    const templateFiles = fs.readdirSync(templatesDir);
+    // Read all template files, including those in subdirectories
+    const templateFiles = getAllFiles(templatesDir);
 
     for (const templateFile of templateFiles) {
         const templatePath = path.join(templatesDir, templateFile);
@@ -103,7 +103,13 @@ async function generateFiles(projectName: string, domainName: string, attributes
         const fileContent = template({ projectName, domainName, attributes });
 
         // Determine the output file path
-        const outputFilePath = path.join(projectDir, templateFile.replace('.hbs', ''));
+        const outputFilePath = path.join(projectDir, templateFile.replace('-template', ''));
+
+        // Ensure the output directory exists
+        const outputDir = path.dirname(outputFilePath);
+        if (!fs.existsSync(outputDir)) {
+            fs.mkdirSync(outputDir, { recursive: true });
+        }
 
         // Write the generated content to the output file
         fs.writeFileSync(outputFilePath, fileContent, 'utf8');
@@ -112,17 +118,27 @@ async function generateFiles(projectName: string, domainName: string, attributes
     vscode.window.showInformationMessage(`Files generated successfully in ${projectDir}`);
 }
 
+function getAllFiles(dir: string, fileList: string[] = [], baseDir: string = dir): string[] {
+    const files = fs.readdirSync(dir);
+
+    files.forEach(file => {
+        const filePath = path.join(dir, file);
+        if (fs.statSync(filePath).isDirectory()) {
+            getAllFiles(filePath, fileList, baseDir);
+        } else {
+            fileList.push(path.relative(baseDir, filePath));
+        }
+    });
+
+    return fileList;
+}
+
 function createReactAppStructure(projectPath: string) {
     const directories = [
         'src',
-        'src/components',
-        'src/containers',
-        'src/services',
-        'src/styles',
-        'public',
-        'public/assets',
-        'public/css',
-        'public/js'
+        'src/assets',
+        'src/features',
+        'public'
     ];
 
     directories.forEach(dir => {
