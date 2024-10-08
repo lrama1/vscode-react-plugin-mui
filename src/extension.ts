@@ -49,6 +49,9 @@ export function activate(context: vscode.ExtensionContext) {
                             // Open the project folder in VS Code
                             const uri = vscode.Uri.file(projectPath);
                             await vscode.commands.executeCommand('vscode.openFolder', uri, true);
+
+                            // Close the WebViewContent tab
+                            panel.dispose();
                         } else {
                             vscode.window.showErrorMessage('No folder selected. Project creation aborted.');
                         }
