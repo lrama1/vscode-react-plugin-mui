@@ -82,7 +82,7 @@ async function getWebviewContent(context: vscode.ExtensionContext, webview: vsco
     return html;
 }
 
-async function generateFiles(projectName: string, domainName: string, attributes: any[], selectedFolderPath: string) {
+export async function generateFiles(projectName: string, domainName: string, attributes: any[], selectedFolderPath: string) {
     console.log('Generating files...');
     const templatesDir = path.join(__dirname, '..', 'templates'); // Adjusted path
     const projectDir = path.join(selectedFolderPath, projectName);
@@ -121,7 +121,7 @@ async function generateFiles(projectName: string, domainName: string, attributes
     vscode.window.showInformationMessage(`Files generated successfully in ${projectDir}`);
 }
 
-function getAllFiles(dir: string, fileList: string[] = [], baseDir: string = dir): string[] {
+export function getAllFiles(dir: string, fileList: string[] = [], baseDir: string = dir): string[] {
     const files = fs.readdirSync(dir);
 
     files.forEach(file => {
