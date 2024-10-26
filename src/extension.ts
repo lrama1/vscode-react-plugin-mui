@@ -86,6 +86,7 @@ export async function generateFiles(projectName: string, domainName: string, att
     console.log('Generating files...');
     const templatesDir = path.join(__dirname, '..', 'templates'); // Adjusted path
     const projectDir = path.join(selectedFolderPath, projectName);
+    const domainCamelCase = domainName.charAt(0).toLowerCase() + domainName.slice(1);
 
     // Ensure the project directory exists
     if (!fs.existsSync(projectDir)) {
@@ -103,10 +104,22 @@ export async function generateFiles(projectName: string, domainName: string, att
         const template = handlebars.compile(templateContent);
 
         // Generate the file content
-        const fileContent = template({ projectName, domainName, attributes });
+        const fileContent = template({ projectName, domainName, domainCamelCase, attributes });
 
         // Determine the output file path
-        const outputFilePath = path.join(projectDir, templateFile.replace('-template', ''));
+        let outputFilePath = "";
+        console.log(templateFile);
+        if(templateFile.includes('domain') || templateFile.includes('Domain')) {
+          const domainCamelCase = domainName.charAt(0).toLowerCase() + domainName.slice(1);
+          outputFilePath = path.join(projectDir, templateFile
+            .replace('features', 'features/' + domainCamelCase)            
+            .replace('Domain-', domainName)
+            .replace('domain-', domainCamelCase)
+            .replace('domains-', domainCamelCase + 's')
+            .replace('-template', ''));
+        } else {
+          outputFilePath = path.join(projectDir, templateFile.replace('-template', ''));
+        }
 
         // Ensure the output directory exists
         const outputDir = path.dirname(outputFilePath);

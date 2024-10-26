@@ -17,7 +17,13 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2",
-    "vite-plugin-mock": "^3.0.2"
+    "react-redux": "^9.1.2",
+    "vite-plugin-mock": "^3.0.2",
+    "primeflex": "2.0.0",
+    "primeicons": "^4.0.0",
+    "primereact": "^9.6.3",
+    "prismjs": "1.9.0",
+    "@reduxjs/toolkit": "^2.2.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
