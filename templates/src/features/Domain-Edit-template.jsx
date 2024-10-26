@@ -3,19 +3,19 @@ import React from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useDispatch, useSelector } from "react-redux";
-import { edited, saveDriver } from "./domain-Slice";
+import { edited, save{{domainName}} } from "./domain-Slice";
 
-function DriverEdit() {
+function {{domainName}}Edit() {
   const dispatch = useDispatch();
 
-  const selectedDriver = useSelector((state) => state.driver.entity);
+  const selected{{domainName}} = useSelector((state) => state.{{domainCamelCase}}.entity);
 
   function buttonEventHandler(event) {
-    dispatch(saveDriver(selectedDriver));
+    dispatch(save{{domainName}}(selected{{domainName}}));
     event.preventDefault();
   }
 
-  function onEditDriver(event) {
+  function onEdit{{domainName}}(event) {
     const { name, value } = event.target;
     dispatch(edited({ name, value }));
   }
@@ -25,18 +25,18 @@ function DriverEdit() {
       <form>
         <div className="p-col-4">
           <label htmlFor="id">id</label>
-          <InputText id="id" name="id" value={selectedDriver.id}
-            onChange={onEditDriver} />
+          <InputText id="id" name="id" value={selected{{domainName}}.id}
+            onChange={onEdit{{domainName}} } />
         </div>
         <div className="p-col-4">
           <label htmlFor="name">name</label>
-          <InputText id="name" name="name" value={selectedDriver.name}
-            onChange={onEditDriver} />
+          <InputText id="name" name="name" value={selected{{domainName}}.name}
+            onChange={onEdit{{domainName}} } />
         </div>
         <div className="p-col-4">
           <label htmlFor="title">title</label>
-          <InputText id="title" name="title" value={selectedDriver.title}
-            onChange={onEditDriver} />
+          <InputText id="title" name="title" value={selected{{domainName}}.title}
+            onChange={onEdit{{domainName}} } />
         </div>
 
         <Button id="saveButton" onClick={buttonEventHandler}>Save</Button>
@@ -45,4 +45,4 @@ function DriverEdit() {
   );
 }
 
-export default DriverEdit;
+export default {{domainName}}Edit;

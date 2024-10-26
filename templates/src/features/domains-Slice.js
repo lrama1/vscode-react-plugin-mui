@@ -14,12 +14,12 @@ const initialState = {
   sortOrder: "",
 };
 
-const DRIVERS_URI = "drivers";
-export const fetchDrivers = createAsyncThunk(
-  "drivers/fetchDrivers",
+const DRIVERS_URI = "{{domainCamelCase}}s";
+export const fetch{{domainName}}s = createAsyncThunk(
+  "{{domainCamelCase}}s/fetch{{domainName}}s",
   async (na, extra) => {
     const { page, perPage, sortField, sortOrder, filters } =
-      extra.getState().drivers;
+      extra.getState().{{domainCamelCase}}s;
     const data = await postRequest(
       DRIVERS_URI +
       `?page=${page + 1
@@ -30,8 +30,8 @@ export const fetchDrivers = createAsyncThunk(
   }
 );
 
-export const driversSlice = createSlice({
-  name: "drivers",
+export const {{domainCamelCase}}sSlice = createSlice({
+  name: "{{domainCamelCase}}s",
   initialState: initialState,
   reducers: {
     pageChanged: (state, action) => {
@@ -49,10 +49,10 @@ export const driversSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchDrivers.pending, (state) => {
+      .addCase(fetch{{domainName}}s.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchDrivers.fulfilled, (state, action) => {
+      .addCase(fetch{{domainName}}s.fulfilled, (state, action) => {
         state.entities = action.payload.rows;
         state.totalRecords = action.payload.totalRecords;
         state.page = action.payload.currentPage;
@@ -61,5 +61,5 @@ export const driversSlice = createSlice({
   },
 });
 
-export const { pageChanged, sorted, filterEdited } = driversSlice.actions;
-export default driversSlice.reducer;
+export const { pageChanged, sorted, filterEdited } = {{domainCamelCase}}sSlice.actions;
+export default {{domainCamelCase}}sSlice.reducer;
