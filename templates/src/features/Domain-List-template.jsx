@@ -4,43 +4,43 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
-import { fetchDrivers, pageChanged, sorted } from "./driversSlice";
-import { fetchDriver } from "./driverSlice";
+import { fetch{{domainName}}s, pageChanged, sorted } from "./{{domainCamelCase}}sSlice";
+import { fetch{{domainName}} } from "./{{domainCamelCase}}Slice";
 import { useHistory } from "react-router-dom";
 
-function DriverList() {
+function {{domainName}}List() {
   const dispatch = useDispatch();
 
   const {
-    entities: drivers,
+    entities: {{domainCamelCase}}s,
     perPage,
     first,
     totalRecords,
     page,
     sortField,
     sortOrder,
-  } = useSelector((state) => state.drivers);
+  } = useSelector((state) => state.{{domainCamelCase}}s);
 
   const history = useHistory();
 
   useEffect(() => {
-    dispatch(fetchDrivers());
+    dispatch(fetch{{domainName}}s());
   }, [dispatch]);
 
-  function onDriversChangePage({ first, rows, page }) {
+  function on{{domainName}}sChangePage({ first, rows, page }) {
     dispatch(pageChanged({ first, rows, page }));
-    dispatch(fetchDrivers());
+    dispatch(fetch{{domainName}}s());
   }
 
   function onSort({ sortField, sortOrder }) {
     dispatch(sorted({ sortField, sortOrder }));
-    dispatch(fetchDrivers());
+    dispatch(fetch{{domainName}}s());
   }
 
   function buttonClicked(event) {
     const id = event.target.value;
-    dispatch(fetchDriver("driver/" + id));
-    history.push({ pathname: "/driver" });
+    dispatch(fetch{{domainName}}("{{domainCamelCase}}/" + id));
+    history.push({ pathname: "/{{domainCamelCase}}" });
   }
 
   function actionTemplate(rowData, column) {
@@ -60,23 +60,23 @@ function DriverList() {
         <Button>Add New</Button>
       </div>
       <DataTable className="p-datatable-products" first={first}
-        paginator={true} value={drivers}
+        paginator={true} value={ {{domainCamelCase}}s}
         lazy={true} rows={10}
         totalRecords={totalRecords}
-        onPage={onDriversChangePage}
+        onPage={on{{domainName}}sChangePage}
         selectionMode="single"
         responsiveLayout="stack"
         breakpoint="960px"
         sortField={sortField}
         sortOrder={sortOrder}
         onSort={onSort}>
-        <Column field="id" header="ID" sortable />
-        <Column field="name" header="NAME" sortable />
-        <Column field="title" header="TITLE" sortable />
+        {{#each attributes}}
+        <Column field="{{this.attributeName}}" header="{{this.attributeName}}" sortable />
+        {{/each}}
         <Column body={actionTemplate} />
       </DataTable>
     </div>
   );
 }
 
-export default DriverList;
+export default {{domainName}}List;

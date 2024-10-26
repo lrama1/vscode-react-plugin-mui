@@ -88,6 +88,8 @@ export async function generateFiles(projectName: string, domainName: string, att
     const projectDir = path.join(selectedFolderPath, projectName);
     const domainCamelCase = domainName.charAt(0).toLowerCase() + domainName.slice(1);
 
+    console.log('Attributes:', attributes);
+
     // Ensure the project directory exists
     if (!fs.existsSync(projectDir)) {
         fs.mkdirSync(projectDir, { recursive: true });
@@ -97,6 +99,7 @@ export async function generateFiles(projectName: string, domainName: string, att
     const templateFiles = getAllFiles(templatesDir);
 
     for (const templateFile of templateFiles) {
+        try{
         const templatePath = path.join(templatesDir, templateFile);
         const templateContent = fs.readFileSync(templatePath, 'utf8');
 
@@ -107,8 +110,7 @@ export async function generateFiles(projectName: string, domainName: string, att
         const fileContent = template({ projectName, domainName, domainCamelCase, attributes });
 
         // Determine the output file path
-        let outputFilePath = "";
-        console.log(templateFile);
+        let outputFilePath = "";       
         if(templateFile.includes('domain') || templateFile.includes('Domain')) {
           const domainCamelCase = domainName.charAt(0).toLowerCase() + domainName.slice(1);
           outputFilePath = path.join(projectDir, templateFile
@@ -129,6 +131,8 @@ export async function generateFiles(projectName: string, domainName: string, att
 
         // Write the generated content to the output file
         fs.writeFileSync(outputFilePath, fileContent, 'utf8');
+    } catch (error) {
+        console.error('Error generating file:', error);
     }
 
     vscode.window.showInformationMessage(`Files generated successfully in ${projectDir}`);
