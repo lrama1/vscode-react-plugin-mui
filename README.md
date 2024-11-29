@@ -25,3 +25,4 @@ npm run compile
 ```
 npm run vsce:package
 ```
+3. Install the VSIX file from the VSCode Extensions tab by selecting 'Install from VSIX..' found in the **...** menu.
