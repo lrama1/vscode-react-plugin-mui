@@ -6,7 +6,7 @@ import './index.css';
 import {{domainCamelCase}} from "./features/{{domainCamelCase}}/{{domainCamelCase}}Slice";
 import {{domainCamelCase}}s from "./features/{{domainCamelCase}}/{{domainCamelCase}}sSlice";
 import { configureStore } from "@reduxjs/toolkit";
-import { HashRouter } from 'react-router-dom';
+import {HashRouter } from 'react-router-dom';
 
 
 export const store = configureStore({

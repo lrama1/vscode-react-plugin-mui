@@ -6,7 +6,7 @@ import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { fetch{{domainName}}s, pageChanged, sorted } from "./{{domainCamelCase}}sSlice";
 import { fetch{{domainName}} } from "./{{domainCamelCase}}Slice";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function {{domainName}}List() {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function {{domainName}}List() {
     sortOrder,
   } = useSelector((state) => state.{{domainCamelCase}}s);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetch{{domainName}}s());
@@ -40,7 +40,7 @@ function {{domainName}}List() {
   function buttonClicked(event) {
     const id = event.target.value;
     dispatch(fetch{{domainName}}("{{domainCamelCase}}/" + id));
-    history.push({ pathname: "/{{domainCamelCase}}" });
+    navigate("/{{domainCamelCase}}");
   }
 
   function actionTemplate(rowData, column) {

@@ -9,11 +9,18 @@ const {{domainCamelCase}}s = Array.from({ length: 15 }, (_, index) => ({
 export default [
   {
     url: '/api/{{domainCamelCase}}s',
-    method: 'get',
-    response: () => {
+    method: 'post',
+    response: ({query}) => {
+      const page = parseInt(query.page, 10) || 1;
+      const pageSize = parseInt(query.per_page, 10) || 10;
+      const start = (page - 1) * pageSize;
+      const end = start + pageSize;
+      const paginated{{domainName}}s = {{domainCamelCase}}s.slice(start, end);
+
       return {
         code: 0,
-        data: {{domainCamelCase}}s,
+        rows: paginated{{domainName}}s,
+        totalRecords: {{domainCamelCase}}s.length,
       };
     },
   },

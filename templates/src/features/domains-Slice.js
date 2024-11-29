@@ -14,7 +14,7 @@ const initialState = {
   sortOrder: "",
 };
 
-const DRIVERS_URI = "{{domainCamelCase}}s";
+const DRIVERS_URI = "api/{{domainCamelCase}}s";
 export const fetch{{domainName}}s = createAsyncThunk(
   "{{domainCamelCase}}s/fetch{{domainName}}s",
   async (na, extra) => {
