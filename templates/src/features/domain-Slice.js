@@ -3,7 +3,11 @@ import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import { getRequest, postRequest, putRequest } from "../../utils/authority";
 
 const initialState = {
-  entity: { {{domainCamelCase}}Id: 0, {{domainCamelCase}}Name: "", {{domainCamelCase}}Balance: "" },
+  entity: {
+    {{#each attributes}}
+    {{this.attributeName}}: "",
+    {{/each}}
+  },
 };
 
 export const fetch{{domainName}} = createAsyncThunk(
