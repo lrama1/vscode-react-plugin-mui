@@ -90,6 +90,10 @@ export async function generateFiles(projectName: string, domainName: string, att
 
     console.log('Attributes:', attributes);
 
+    // Find the attribute marked as idFlag
+    const idAttribute = attributes.find(attr => attr.idFlag)?.attributeName || '';
+    console.log('ID Attribute:', idAttribute);
+
     // Ensure the project directory exists
     if (!fs.existsSync(projectDir)) {
         fs.mkdirSync(projectDir, { recursive: true });
@@ -99,40 +103,41 @@ export async function generateFiles(projectName: string, domainName: string, att
     const templateFiles = getAllFiles(templatesDir);
 
     for (const templateFile of templateFiles) {
-        try{
-        const templatePath = path.join(templatesDir, templateFile);
-        const templateContent = fs.readFileSync(templatePath, 'utf8');
+        try {
+            const templatePath = path.join(templatesDir, templateFile);
+            const templateContent = fs.readFileSync(templatePath, 'utf8');
 
-        // Compile the template
-        const template = handlebars.compile(templateContent);
+            // Compile the template
+            const template = handlebars.compile(templateContent);
 
-        // Generate the file content
-        const fileContent = template({ projectName, domainName, domainCamelCase, attributes });
+            // Generate the file content
+            const fileContent = template({ projectName, domainName, domainCamelCase, attributes, idAttribute });
 
-        // Determine the output file path
-        let outputFilePath = "";       
-        if(templateFile.includes('domain') || templateFile.includes('Domain')) {
-          const domainCamelCase = domainName.charAt(0).toLowerCase() + domainName.slice(1);
-          outputFilePath = path.join(projectDir, templateFile
-            .replace('features', 'features/' + domainCamelCase)            
-            .replace('Domain-', domainName)
-            .replace('domain-', domainCamelCase)
-            .replace('domains-', domainCamelCase + 's')
-            .replace('-template', ''));
-        } else {
-          outputFilePath = path.join(projectDir, templateFile.replace('-template', ''));
+            // Determine the output file path
+            let outputFilePath = "";       
+            if(templateFile.includes('domain') || templateFile.includes('Domain')) {
+                const domainCamelCase = domainName.charAt(0).toLowerCase() + domainName.slice(1);
+                outputFilePath = path.join(projectDir, templateFile
+                    .replace('features', 'features/' + domainCamelCase)            
+                    .replace('Domain-', domainName)
+                    .replace('domain-', domainCamelCase)
+                    .replace('domains-', domainCamelCase + 's')
+                    .replace('-template', ''));
+            } else {
+                outputFilePath = path.join(projectDir, templateFile.replace('-template', ''));
+            }
+
+            // Ensure the output directory exists
+            const outputDir = path.dirname(outputFilePath);
+            if (!fs.existsSync(outputDir)) {
+                fs.mkdirSync(outputDir, { recursive: true });
+            }
+
+            // Write the generated content to the output file
+            fs.writeFileSync(outputFilePath, fileContent, 'utf8');
+        } catch (error) {
+            console.error('Error generating file:', error);
         }
-
-        // Ensure the output directory exists
-        const outputDir = path.dirname(outputFilePath);
-        if (!fs.existsSync(outputDir)) {
-            fs.mkdirSync(outputDir, { recursive: true });
-        }
-
-        // Write the generated content to the output file
-        fs.writeFileSync(outputFilePath, fileContent, 'utf8');
-    } catch (error) {
-        console.error('Error generating file:', error);
     }
 
     vscode.window.showInformationMessage(`Files generated successfully in ${projectDir}`);

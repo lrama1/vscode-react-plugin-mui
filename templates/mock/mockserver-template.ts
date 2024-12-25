@@ -1,3 +1,4 @@
+import { url } from 'inspector';
 import { MockMethod } from 'vite-plugin-mock';
 
 const {{domainCamelCase}}s = Array.from({ length: 15 }, (_, index) => ({
@@ -24,4 +25,16 @@ export default [
       };
     },
   },
+  {
+    url: '/api/{{domainCamelCase}}/:id',
+    method: 'get',
+    response: ({query}) => {
+      const {{domainCamelCase}} = {{domainCamelCase}}s.find((item) => item.{{idAttribute}} === query.id);
+
+      return {
+        code: 0,
+        data: {{domainCamelCase}},
+      };
+    },
+  }
 ] as MockMethod[];

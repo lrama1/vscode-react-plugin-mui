@@ -39,15 +39,15 @@ function {{domainName}}List() {
 
   function buttonClicked(event) {
     const id = event.target.value;
-    dispatch(fetch{{domainName}}("{{domainCamelCase}}/" + id));
+    dispatch(fetch{{domainName}}("api/{{domainCamelCase}}/" + id));
     navigate("/{{domainCamelCase}}");
   }
 
   function actionTemplate(rowData, column) {
     return (
       <Button
-        id={rowData.id}
-        value={rowData.id}
+        id={rowData.{{idAttribute}} }
+        value={rowData.{{idAttribute}} }
         onClick={buttonClicked}
       >
         Edit
