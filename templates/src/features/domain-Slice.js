@@ -18,14 +18,14 @@ export const fetch{{domainName}} = createAsyncThunk(
   }
 );
 
-const DRIVER_SAVE_URI = "{{domainCamelCase}}";
+const DRIVER_SAVE_URI = "api/{{domainCamelCase}}";
 export const save{{domainName}} = createAsyncThunk(
   "{{domainCamelCase}}/save{{domainName}}",
   async ({{domainCamelCase}}) => {
     const data =
-      {{domainCamelCase}}.{{domainCamelCase}}Id === ""
+      {{domainCamelCase}}.{{idAttribute}} === ""
         ? await postRequest(DRIVER_SAVE_URI, {{domainCamelCase}})
-        : await putRequest(DRIVER_SAVE_URI + "/" + {{domainCamelCase}}.{{domainCamelCase}}Id, {{domainCamelCase}});
+        : await putRequest(DRIVER_SAVE_URI + "/" + {{domainCamelCase}}.{{idAttribute}}, {{domainCamelCase}});
     return data;
   }
 );

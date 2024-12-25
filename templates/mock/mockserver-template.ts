@@ -33,5 +33,15 @@ export default [
 
       return {{domainCamelCase}};
     },
+  },
+  {
+    url: '/api/{{domainCamelCase}}/:id',
+    method: 'put',
+    response: ({query, body}) => {
+      const {{domainCamelCase}} = {{domainCamelCase}}s.find((item) => item.{{idAttribute}} === query.id);
+      Object.assign({{domainCamelCase}}, body);
+
+      return {{domainCamelCase}};
+    },
   }
 ] as MockMethod[];
