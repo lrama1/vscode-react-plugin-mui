@@ -31,10 +31,7 @@ export default [
     response: ({query}) => {
       const {{domainCamelCase}} = {{domainCamelCase}}s.find((item) => item.{{idAttribute}} === query.id);
 
-      return {
-        code: 0,
-        data: {{domainCamelCase}},
-      };
+      return {{domainCamelCase}};
     },
   }
 ] as MockMethod[];
