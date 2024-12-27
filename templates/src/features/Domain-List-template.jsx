@@ -1,9 +1,7 @@
 
-import { DataTable } from "primereact/datatable";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Button, Paper, TablePagination } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Column } from "primereact/column";
-import { Button } from "primereact/button";
 import { fetch{{domainName}}s, pageChanged, sorted } from "./{{domainCamelCase}}sSlice";
 import { fetch{{domainName}} } from "./{{domainCamelCase}}Slice";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +12,6 @@ function {{domainName}}List() {
   const {
     entities: {{domainCamelCase}}s,
     perPage,
-    first,
     totalRecords,
     page,
     sortField,
@@ -27,54 +24,73 @@ function {{domainName}}List() {
     dispatch(fetch{{domainName}}s());
   }, [dispatch]);
 
-  function on{{domainName}}sChangePage({ first, rows, page }) {
-    dispatch(pageChanged({ first, rows, page }));
+  function on{{domainName}}sChangePage(event, newPage) {
+    dispatch(pageChanged({ page:newPage, perPage }));
     dispatch(fetch{{domainName}}s());
   }
 
-  function onSort({ sortField, sortOrder }) {
-    dispatch(sorted({ sortField, sortOrder }));
+  function onSort(event, property) {
+    const isAsc = sortField === property && sortOrder === 'asc';
+    dispatch(sorted({ sortField: property, sortOrder: isAsc ? 'desc' : 'asc' }));
     dispatch(fetch{{domainName}}s());
   }
 
   function buttonClicked(event) {
-    const id = event.target.value;
+    const id = event.currentTarget.value;
     dispatch(fetch{{domainName}}("api/{{domainCamelCase}}/" + id));
     navigate("/{{domainCamelCase}}");
   }
 
-  function actionTemplate(rowData, column) {
-    return (
-      <Button
-        id={rowData.{{idAttribute}} }
-        value={rowData.{{idAttribute}} }
-        onClick={buttonClicked}
-      >
-        Edit
-      </Button>
-    );
-  }
+
   return (
     <div className="layout-dashboard">
       <div>
-        <Button>Add New</Button>
+        <Button variant="contained" color="primary">Add New</Button>
       </div>
-      <DataTable className="p-datatable-products" first={first}
-        paginator={true} value={ {{domainCamelCase}}s}
-        lazy={true} rows={10}
-        totalRecords={totalRecords}
-        onPage={on{{domainName}}sChangePage}
-        selectionMode="single"
-        responsiveLayout="stack"
-        breakpoint="960px"
-        sortField={sortField}
-        sortOrder={sortOrder}
-        onSort={onSort}>
-        {{#each attributes}}
-        <Column field="{{this.attributeName}}" header="{{this.attributeName}}" sortable />
-        {{/each}}
-        <Column body={actionTemplate} />
-      </DataTable>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+          <TableRow>
+          {{#each attributes}}
+            <TableCell sortDirection={sortField === '{{this.attributeName}}' ? sortOrder : false}>
+                <TableSortLabel
+                  active={sortField === '{{this.attributeName}}'}
+                  direction={sortField === '{{this.attributeName}}' ? sortOrder : 'asc'}
+                  onClick={(event) => onSort(event, '{{this.attributeName}}')}
+                >
+                  {{this.attributeName}}
+                </TableSortLabel>
+            </TableCell>            
+          {{/each}}
+            <TableCell>Actions</TableCell>
+          </TableRow>
+          </TableHead>
+          
+          <TableBody>
+          { {{domainCamelCase}}s.map(({{domainCamelCase}}) => (  
+            <TableRow key={ {{domainCamelCase}}.{{idAttribute}} }>
+            {{#each attributes}}            
+              <TableCell>{ {{../domainCamelCase}}.{{this.attributeName}} }</TableCell>            
+            {{/each}}
+              <TableCell>
+                  <Button variant="contained" color="primary" value={ {{domainCamelCase}}.{{idAttribute}} } onClick={buttonClicked}>
+                    Edit
+                  </Button>
+                </TableCell>
+            </TableRow>
+            ))}
+          </TableBody>
+          <TablePagination
+            component="div"
+            count={totalRecords}
+            page={page}
+            onPageChange={on{{domainName}}sChangePage}
+            rowsPerPage={perPage}
+            onRowsPerPageChange={(event) => dispatch(pageChanged({ perPage: parseInt(event.target.value, 10), page: 0 }))}
+          />
+        </Table>
+
+      </TableContainer>
     </div>
   );
 }

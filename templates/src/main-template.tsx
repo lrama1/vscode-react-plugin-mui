@@ -7,9 +7,7 @@ import {{domainCamelCase}} from "./features/{{domainCamelCase}}/{{domainCamelCas
 import {{domainCamelCase}}s from "./features/{{domainCamelCase}}/{{domainCamelCase}}sSlice";
 import { configureStore } from "@reduxjs/toolkit";
 import {HashRouter } from 'react-router-dom';
-import 'primereact/resources/themes/saga-blue/theme.css';  // or any other theme
-import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
+import { CssBaseline } from '@mui/material';
 
 
 export const store = configureStore({
@@ -22,6 +20,7 @@ export const store = configureStore({
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
   <StrictMode>
+  <CssBaseline />
   <HashRouter>
     <App />
   </HashRouter>

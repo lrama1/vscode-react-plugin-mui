@@ -5,8 +5,7 @@ import { first } from "lodash";
 
 const initialState = {
   entities: [],
-  totalRecords: 0,
-  first: 0,
+  totalRecords: 0,  
   page: 0,
   perPage: 10,
   filters: {},
@@ -55,7 +54,7 @@ export const {{domainCamelCase}}sSlice = createSlice({
       .addCase(fetch{{domainName}}s.fulfilled, (state, action) => {
         state.entities = action.payload.rows;
         state.totalRecords = action.payload.totalRecords;
-        state.page = action.payload.currentPage;
+        state.page = action.payload.page - 1; // Adjust to zero-based index
         state.status = "done";
       });
   },

@@ -19,6 +19,7 @@ export default [
       const paginated{{domainName}}s = {{domainCamelCase}}s.slice(start, end);
 
       return {
+        page: page,
         code: 0,
         rows: paginated{{domainName}}s,
         totalRecords: {{domainCamelCase}}s.length,

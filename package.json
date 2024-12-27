@@ -10,15 +10,13 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onCommand:extension.startWizard"
-  ],
+  "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "extension.startWizard",
-        "title": "React: Project Wizard"
+        "title": "React: Project Wizard MUI"
       }
     ]
   },
