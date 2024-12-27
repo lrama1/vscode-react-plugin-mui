@@ -17,8 +17,12 @@ To run the plugin while developing it, follow these steps:
 ```
 npm install
 ```
-2. Within VSCode type **F5** (this will open a new VSCode Window)
-3. Type **Ctrl-Shift-P** and locate **React: Project Wizard** from the list
+2. Compile
+```
+npm run compile
+```
+3. Within VSCode type **F5** (this will open a new VSCode Window)
+4. Type **Ctrl-Shift-P** and locate **React: Project Wizard** from the list
 
 ## Creating a VSIX file for distribution
 1. Run compile
