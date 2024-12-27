@@ -13,8 +13,12 @@ This project is a plugin for Visual Studio Code that enhances the development ex
 
 ## Running while developing
 To run the plugin while developing it, follow these steps:
-1. Within VSCode type **F5** (this will open a new VSCode Window)
-2. Type **Ctrl-Shift-P** and locate **React: Project Wizard** from the list
+1. Install Modules
+```
+npm install
+```
+2. Within VSCode type **F5** (this will open a new VSCode Window)
+3. Type **Ctrl-Shift-P** and locate **React: Project Wizard** from the list
 
 ## Creating a VSIX file for distribution
 1. Run compile
