@@ -36,7 +36,7 @@ function {{domainName}}Edit() {
         {{/each}}
         <Grid item xs={12}>
           <Button variant="contained" color="primary" onClick={buttonEventHandler}>
-            Save
+            Save {{domainName}}
           </Button>
         </Grid>
       </form>

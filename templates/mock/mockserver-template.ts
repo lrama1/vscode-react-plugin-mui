@@ -16,7 +16,17 @@ export default [
       const pageSize = parseInt(query.per_page, 10) || 10;
       const start = (page - 1) * pageSize;
       const end = start + pageSize;
-      const paginated{{domainName}}s = {{domainCamelCase}}s.slice(start, end);
+     
+      const sortField = query.sort_by || '{{idAttribute}}';
+      const sortOrder = query.order || 'asc';
+
+      const sorted{{domainName}}s = {{domainCamelCase}}s.sort((a, b) => {
+        if (a[sortField] < b[sortField]) return sortOrder === 'asc' ? -1 : 1;
+        if (a[sortField] > b[sortField]) return sortOrder === 'asc' ? 1 : -1;
+        return 0;
+      });
+
+      const paginated{{domainName}}s = sorted{{domainName}}s.slice(start, end);
 
       return {
         page: page,

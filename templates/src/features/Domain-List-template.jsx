@@ -79,16 +79,16 @@ function {{domainName}}List() {
                 </TableCell>
             </TableRow>
             ))}
-          </TableBody>
-          <TablePagination
-            component="div"
+          </TableBody>          
+        </Table>
+        <TablePagination
+            component= "div"
             count={totalRecords}
             page={page}
             onPageChange={on{{domainName}}sChangePage}
             rowsPerPage={perPage}
             onRowsPerPageChange={(event) => dispatch(pageChanged({ perPage: parseInt(event.target.value, 10), page: 0 }))}
           />
-        </Table>
 
       </TableContainer>
     </div>
