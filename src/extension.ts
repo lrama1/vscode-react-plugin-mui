@@ -182,7 +182,8 @@ function createReactAppStructure(projectPath: string) {
         'src',
         'src/assets',
         'src/features',
-        'public'
+        'public',
+        'mock'
     ];
 
     directories.forEach(dir => {
