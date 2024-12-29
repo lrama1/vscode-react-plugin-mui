@@ -186,7 +186,7 @@ function createReactAppStructure(projectPath: string) {
         'src',
         'src/assets',
         'src/features',
-        'src/server',
+        'mock',
         'public'
     ];
 
