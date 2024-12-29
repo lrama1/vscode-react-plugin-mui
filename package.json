@@ -6,7 +6,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/lrama1/vscode-react-plugin-mui.git"},
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.92.0"
   },
@@ -36,7 +36,7 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint src --ext ts",
     "test": "vscode-test",    
-    "vsce:package": "if not exist releases mkdir releases && vsce package --out releases/vscode-react-plugin-mui.vsix"
+    "vsce:package": "vsce package --out releases/vscode-react-plugin-mui.vsix"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.7",

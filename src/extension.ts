@@ -125,6 +125,7 @@ export async function generateFiles(projectName: string, domainName: string, att
             const templatePath = path.join(templatesDir, templateFile);
             const templateContent = fs.readFileSync(templatePath, 'utf8');
 
+            console.log('Generating file:', templateFile);
             // Compile the template
             const template = handlebars.compile(templateContent);
 
