@@ -48,7 +48,7 @@ function {{domainName}}List() {
 
   return (
     <div className="layout-dashboard">
-      <div>
+      <div style={{ margin: '20px', float: 'right' }}>
         <Button variant="contained" color="primary" onClick={onAddNew}>Add New</Button>
       </div>
       <TableContainer component={Paper}>
