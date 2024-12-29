@@ -125,8 +125,8 @@ export async function generateFiles(projectName: string, domainName: string, att
             const templatePath = path.join(templatesDir, templateFile);
             const templateContent = fs.readFileSync(templatePath, 'utf8');
 
-            console.log('Generating file:', templateFile);
             vscode.window.showInformationMessage(`Generating file: ${templateFile}`);
+            console.log(`Generating file: ${templateFile}`); // Add logging
             // Compile the template
             const template = handlebars.compile(templateContent);
 
@@ -136,6 +136,7 @@ export async function generateFiles(projectName: string, domainName: string, att
             // Determine the output file path
             let outputFilePath = "";       
             if(templateFile.includes('domain') || templateFile.includes('Domain')) {
+                console.debug('Generating file:', templateFile);
                 const domainCamelCase = domainName.charAt(0).toLowerCase() + domainName.slice(1);
                 outputFilePath = path.join(projectDir, templateFile
                     .replace('features', 'features/' + domainCamelCase)            
@@ -144,6 +145,7 @@ export async function generateFiles(projectName: string, domainName: string, att
                     .replace('domains-', domainCamelCase + 's')
                     .replace('-template', ''));
             } else {
+                console.debug('Generating file:', templateFile);
                 outputFilePath = path.join(projectDir, templateFile.replace('-template', ''));
             }
 
