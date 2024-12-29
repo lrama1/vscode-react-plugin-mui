@@ -126,6 +126,7 @@ export async function generateFiles(projectName: string, domainName: string, att
             const templateContent = fs.readFileSync(templatePath, 'utf8');
 
             console.log('Generating file:', templateFile);
+            vscode.window.showInformationMessage(`Generating file: ${templateFile}`);
             // Compile the template
             const template = handlebars.compile(templateContent);
 
@@ -154,6 +155,7 @@ export async function generateFiles(projectName: string, domainName: string, att
 
             // Write the generated content to the output file
             fs.writeFileSync(outputFilePath, fileContent, 'utf8');
+            console.log(`File written: ${outputFilePath}`);
         } catch (error) {
             console.error('Error generating file:', error);
         }
@@ -182,8 +184,7 @@ function createReactAppStructure(projectPath: string) {
         'src',
         'src/assets',
         'src/features',
-        'public',
-        'mock'
+        'public'
     ];
 
     directories.forEach(dir => {

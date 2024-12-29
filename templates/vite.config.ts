@@ -6,7 +6,7 @@ import { viteMockServe } from 'vite-plugin-mock';
 export default defineConfig({
   plugins: [react(),
     viteMockServe({
-      mockPath: 'mock',      
+      mockPath: 'src/mock',      
     }),
   ],
 })
