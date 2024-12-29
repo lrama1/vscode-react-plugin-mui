@@ -3,6 +3,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as handlebars from 'handlebars';
 
+// Register a comparison helper for Handlebars
+// Removed the helper registration from here
+
 export function activate(context: vscode.ExtensionContext) {
     let disposable = vscode.commands.registerCommand('extension.startWizard', async () => {
         const panel = vscode.window.createWebviewPanel(
@@ -82,8 +85,23 @@ async function getWebviewContent(context: vscode.ExtensionContext, webview: vsco
     return html;
 }
 
+function registerHandlebarsHelpers() {
+    // Register the helper right before we use it
+    try {
+        handlebars.registerHelper('eq', function(arg1: any, arg2: any) {
+            const result =  arg1 === arg2;
+            console.log('eq helper called with:', arg1, arg2, 'result:', result);
+            return result;
+        });
+    } catch (error) {
+        console.error('Error registering helper:', error);
+    }
+}
+
 export async function generateFiles(projectName: string, domainName: string, attributes: any[], selectedFolderPath: string) {
     console.log('Generating files...');
+    registerHandlebarsHelpers();
+    
     const templatesDir = path.join(__dirname, '..', 'templates'); // Adjusted path
     const projectDir = path.join(selectedFolderPath, projectName);
     const domainCamelCase = domainName.charAt(0).toLowerCase() + domainName.slice(1);

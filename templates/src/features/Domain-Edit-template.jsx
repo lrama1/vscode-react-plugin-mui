@@ -1,4 +1,3 @@
-
 import React from "react";
 import { TextField, Button, Grid, Container, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,6 +32,9 @@ function {{domainName}}Edit() {
                 value={selected{{../domainName}}.{{this.attributeName}} }
                 onChange={onEdit{{../domainName}} }
                 fullWidth
+                {{#if (eq attributeName ../idAttribute)}}
+                disabled
+                {{/if}}
               />
             </Grid>
             {{/each}}

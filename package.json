@@ -3,6 +3,9 @@
   "displayName": "vscode-react",
   "description": "generates a basic react scaffolding",
   "publisher": "Lawrence Rama",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lrama1/vscode-react-plugin-mui.git"},
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.92.0"

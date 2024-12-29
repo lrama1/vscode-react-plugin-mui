@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Table
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetch{{domainName}}s, pageChanged, sorted } from "./{{domainCamelCase}}sSlice";
-import { fetch{{domainName}} } from "./{{domainCamelCase}}Slice";
+import { fetch{{domainName}}, new{{domainName}} } from "./{{domainCamelCase}}Slice";
 import { useNavigate } from "react-router-dom";
 
 function {{domainName}}List() {
@@ -41,11 +41,15 @@ function {{domainName}}List() {
     navigate("/{{domainCamelCase}}");
   }
 
+  function onAddNew() {
+    dispatch(new{{domainName}}());
+    navigate("/{{domainCamelCase}}");
+  }
 
   return (
     <div className="layout-dashboard">
       <div>
-        <Button variant="contained" color="primary">Add New</Button>
+        <Button variant="contained" color="primary" onClick={onAddNew}>Add New</Button>
       </div>
       <TableContainer component={Paper}>
         <Table>

@@ -54,5 +54,27 @@ export default [
 
       return {{domainCamelCase}};
     },
+  },
+  {
+    url: '/api/{{domainCamelCase}}/:id',
+    method: 'delete',
+    response: ({query}) => {
+      const index = {{domainCamelCase}}s.findIndex((item) => item.{{idAttribute}} === query.id);
+      {{domainCamelCase}}s.splice(index, 1);
+
+      return true;
+    },
+  },
+  {
+    url: '/api/{{domainCamelCase}}',
+    method: 'post',
+    response: ({body}) => {
+      const {{domainCamelCase}} = {
+       ...body, {{idAttribute}}: 'Sample-{{idAttribute}}-' + ({{domainCamelCase}}s.length + 1)
+      };
+      {{domainCamelCase}}s.push({{domainCamelCase}});
+
+      return {{domainCamelCase}};
+    },
   }
 ] as MockMethod[];

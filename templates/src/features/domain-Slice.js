@@ -40,6 +40,9 @@ export const {{domainCamelCase}}Slice = createSlice({
     created: (state, action) => {
       state.entity = initialState.entity;
     },
+    new{{domainName}}: (state) => {
+      state.entity = initialState.entity;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -60,5 +63,5 @@ export const {{domainCamelCase}}Slice = createSlice({
   },
 });
 
-export const { edited, created } = {{domainCamelCase}}Slice.actions;
+export const { edited, created, new{{domainName}} } = {{domainCamelCase}}Slice.actions;
 export default {{domainCamelCase}}Slice.reducer;
