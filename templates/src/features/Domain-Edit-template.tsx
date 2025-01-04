@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Button, Grid, Container, Box } from "@mui/material";
+import { TextField, Button, Grid, Container, Box, Checkbox, FormControlLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { edited, save{{domainName}} } from "./{{domainCamelCase}}Slice";
 
@@ -14,8 +14,9 @@ function {{domainName}}Edit() {
   }
 
   function onEdit{{domainName}}(event) {
-    const { name, value } = event.target;
-    dispatch(edited({ name, value }));
+    const { name, value, type, checked } = event.target;
+    const newValue = type === 'checkbox' ? checked : value;
+    dispatch(edited({ name, value: newValue }));
   }
 
   return (
@@ -25,6 +26,20 @@ function {{domainName}}Edit() {
             <Grid container spacing={2}>
             {{#each attributes}}
             <Grid item xs={12}>
+              {{#if (eq this.dataType 'Boolean')}}
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    id="{{this.attributeName}}"
+                    name="{{this.attributeName}}"
+                    value={selected{{../domainName}}.{{this.attributeName}} }
+                    checked={selected{{../domainName}}.{{this.attributeName}} }
+                    onChange={onEdit{{../domainName}} }
+                  />
+                }
+                label="{{this.attributeName}}"
+              />
+              {{else}}
               <TextField
                 id="{{this.attributeName}}"
                 name="{{this.attributeName}}"
@@ -36,6 +51,7 @@ function {{domainName}}Edit() {
                 disabled
                 {{/if}}
               />
+              {{/if}}
             </Grid>
             {{/each}}
             <Grid item xs={12}>

@@ -1,4 +1,3 @@
-
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Button, Paper, TablePagination } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -74,7 +73,13 @@ function {{domainName}}List() {
           { {{domainCamelCase}}s.map(({{domainCamelCase}}) => (  
             <TableRow key={ {{domainCamelCase}}.{{idAttribute}} }>
             {{#each attributes}}            
-              <TableCell>{ {{../domainCamelCase}}.{{this.attributeName}} }</TableCell>            
+              <TableCell>
+                {{#if (eq this.dataType "Boolean")}}
+                  { {{../domainCamelCase}}.{{this.attributeName}} ? 'Y' : 'N' }
+                {{else}}
+                  { {{../domainCamelCase}}.{{this.attributeName}} }
+                {{/if}}
+              </TableCell>            
             {{/each}}
               <TableCell>
                   <Button variant="contained" color="primary" value={ {{domainCamelCase}}.{{idAttribute}} } onClick={buttonClicked}>

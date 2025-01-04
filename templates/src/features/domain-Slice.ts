@@ -1,11 +1,10 @@
-
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import { getRequest, postRequest, putRequest } from "../../utils/authority";
 
 const initialState = {
   entity: {
     {{#each attributes}}
-    {{this.attributeName}}: "",
+    {{this.attributeName}}: {{#if (eq this.dataType "Boolean")}} false {{else}} "" {{/if}},
     {{/each}}
   },
 };

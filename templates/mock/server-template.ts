@@ -3,7 +3,7 @@ import { MockMethod } from 'vite-plugin-mock';
 
 const {{domainCamelCase}}s = Array.from({ length: 15 }, (_, index) => ({
     {{#each attributes}}
-        "{{this.attributeName}}" : `Sample-{{this.attributeName}}-${index}`,
+        "{{this.attributeName}}" : {{#if (eq this.dataType "Boolean")}} true {{else}} `Sample-{{this.attributeName}}-${index}` {{/if}},
     {{/each}}
 }));
 
