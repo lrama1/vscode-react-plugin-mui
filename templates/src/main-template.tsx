@@ -9,6 +9,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import {HashRouter } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
 
+/// <reference lib="dom" />
 
 export const store = configureStore({
   reducer: {

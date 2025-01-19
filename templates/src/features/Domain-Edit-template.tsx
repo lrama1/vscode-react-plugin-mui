@@ -1,4 +1,3 @@
-import React from "react";
 import { TextField, Button, Grid, Container, Box, Checkbox, FormControlLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { edited, save{{domainName}} } from "./{{domainCamelCase}}Slice";
@@ -6,7 +5,7 @@ import { edited, save{{domainName}} } from "./{{domainCamelCase}}Slice";
 function {{domainName}}Edit() {
   const dispatch = useDispatch();
 
-  const selected{{domainName}} = useSelector((state) => state.{{domainCamelCase}}.entity);
+  const selected{{domainName}} = useSelector((state: any) => state.{{domainCamelCase}}.entity);
 
   function buttonEventHandler(event) {
     dispatch(save{{domainName}}(selected{{domainName}}));

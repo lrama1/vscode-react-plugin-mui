@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Button, Paper, TablePagination } from "@mui/material";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetch{{domainName}}s, pageChanged, sorted } from "./{{domainCamelCase}}sSlice";
 import { fetch{{domainName}}, new{{domainName}} } from "./{{domainCamelCase}}Slice";
@@ -15,7 +15,7 @@ function {{domainName}}List() {
     page,
     sortField,
     sortOrder,
-  } = useSelector((state) => state.{{domainCamelCase}}s);
+  } = useSelector((state: any) => state.{{domainCamelCase}}s);
 
   const navigate = useNavigate();
 
@@ -23,12 +23,12 @@ function {{domainName}}List() {
     dispatch(fetch{{domainName}}s());
   }, [dispatch]);
 
-  function on{{domainName}}sChangePage(event, newPage) {
+  function on{{domainName}}sChangePage(_, newPage) {
     dispatch(pageChanged({ page:newPage, perPage }));
     dispatch(fetch{{domainName}}s());
   }
 
-  function onSort(event, property) {
+  function onSort(_, property) {
     const isAsc = sortField === property && sortOrder === 'asc';
     dispatch(sorted({ sortField: property, sortOrder: isAsc ? 'desc' : 'asc' }));
     dispatch(fetch{{domainName}}s());
@@ -96,7 +96,7 @@ function {{domainName}}List() {
             page={page}
             onPageChange={on{{domainName}}sChangePage}
             rowsPerPage={perPage}
-            onRowsPerPageChange={(event) => dispatch(pageChanged({ perPage: parseInt(event.target.value, 10), page: 0 }))}
+            onRowsPerPageChange={(event) => dispatch(pageChanged({ perPage: parseInt((event.target as HTMLInputElement).value, 10), page: 0 }))}
           />
 
       </TableContainer>
