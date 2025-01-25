@@ -1,18 +1,18 @@
 import { TextField, Button, Grid, Container, Box, Checkbox, FormControlLabel } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import { edited, save{{domainName}} } from "./{{domainCamelCase}}Slice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 function {{domainName}}Edit() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const selected{{domainName}} = useSelector((state: any) => state.{{domainCamelCase}}.entity);
+  const selected{{domainName}} = useAppSelector((state: any) => state.{{domainCamelCase}}.entity);
 
-  function buttonEventHandler(event) {
+  function buttonEventHandler(event: React.FormEvent) {
     dispatch(save{{domainName}}(selected{{domainName}}));
     event.preventDefault();
   }
 
-  function onEdit{{domainName}}(event) {
+  function onEdit{{domainName}}(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value, type, checked } = event.target;
     const newValue = type === 'checkbox' ? checked : value;
     dispatch(edited({ name, value: newValue }));

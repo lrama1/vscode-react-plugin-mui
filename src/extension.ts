@@ -186,16 +186,34 @@ function createReactAppStructure(projectPath: string) {
         'src',
         'src/assets',
         'src/features',
+        'src/types',
         'mock',
         'public'
     ];
 
-    directories.forEach(dir => {
+    /*directories.forEach(dir => {
         const dirPath = path.join(projectPath, dir);
         if (!fs.existsSync(dirPath)) {
             fs.mkdirSync(dirPath, { recursive: true });
         }
     });
+    */
+    directories.forEach(dir => {
+        const dirPath = path.join(projectPath, dir);
+        console.log(`Attempting to create directory: ${dirPath}`);
+        try {
+            if (!fs.existsSync(dirPath)) {
+                fs.mkdirSync(dirPath, { recursive: true });
+                console.log(`Successfully created directory: ${dirPath}`);
+            } else {
+                console.log(`Directory already exists: ${dirPath}`);
+            }
+        } catch (error) {
+            console.error(`Error creating directory ${dirPath}:`, error);
+            vscode.window.showErrorMessage(`Failed to create directory: ${dirPath}`);
+        }
+    });
+
 
     vscode.window.showInformationMessage(`React app structure created in ${projectPath}`);
 }

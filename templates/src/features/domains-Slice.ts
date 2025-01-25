@@ -1,9 +1,11 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { postRequest } from "../../utils/authority";
+import { RootState } from "../../store";
+import { {{domainName}} } from "../../types/common-types";
 
 const initialState = {
-  entities: [],
+  entities: [] as {{domainName}}[],
   totalRecords: 0,  
   page: 0,
   perPage: 10,
@@ -17,8 +19,9 @@ const DRIVERS_URI = "api/{{domainCamelCase}}s";
 export const fetch{{domainName}}s = createAsyncThunk(
   "{{domainCamelCase}}s/fetch{{domainName}}s",
   async (_, { getState }) => {
+    const state = getState() as RootState;
     const { page, perPage, sortField, sortOrder, filters } =
-      getState().{{domainCamelCase}}s;
+      state.{{domainCamelCase}}s;
     const data = await postRequest(
       DRIVERS_URI +
       `?page=${page + 1
@@ -35,7 +38,6 @@ export const {{domainCamelCase}}sSlice = createSlice({
   reducers: {
     pageChanged: (state, action) => {
       console.log("Change page ", action.payload);
-      state.first = action.payload.first;
       state.page = action.payload.page;
       state.perPage = action.payload.perPage;
     },

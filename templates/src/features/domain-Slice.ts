@@ -7,7 +7,6 @@ const initialState = {
     {{this.attributeName}}: {{#if (eq this.dataType "Boolean")}} false {{else}} "" {{/if}},
     {{/each}}
   },
-  status: "",
 };
 
 export const fetch{{domainName}} = createAsyncThunk(
@@ -37,7 +36,7 @@ export const {{domainCamelCase}}Slice = createSlice({
     edited: (state, action) => {
       state.entity[action.payload.name] = action.payload.value;
     },
-    created: (state) => {
+    created: (state, action) => {
       state.entity = initialState.entity;
     },
     new{{domainName}}: (state) => {
