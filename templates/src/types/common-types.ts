@@ -1,6 +1,6 @@
 
 export interface {{domainName}} {
     {{#each attributes}}
-    {{this.attributeName}}: {{this.dataType}},
+    {{this.attributeName}}: {{ lowercase this.dataType }},
     {{/each}}
 }

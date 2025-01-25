@@ -87,15 +87,22 @@ async function getWebviewContent(context: vscode.ExtensionContext, webview: vsco
 
 function registerHandlebarsHelpers() {
     // Register the helper right before we use it
-    try {
+    console.log('Registering Handlebars helpers...');
+    try {            
         handlebars.registerHelper('eq', function(arg1: any, arg2: any) {
             const result =  arg1 === arg2;
             console.log('eq helper called with:', arg1, arg2, 'result:', result);
             return result;
         });
+
+        handlebars.registerHelper('lowercase', function(str: string) {
+            return str.toLowerCase();
+        });       
+        
     } catch (error) {
         console.error('Error registering helper:', error);
     }
+    console.log('Handlebars helpers registered successfully.');
 }
 
 export async function generateFiles(projectName: string, domainName: string, attributes: any[], selectedFolderPath: string) {

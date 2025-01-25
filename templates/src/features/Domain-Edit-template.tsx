@@ -1,4 +1,4 @@
-import { TextField, Button, Grid, Container, Box, Checkbox, FormControlLabel } from "@mui/material";
+import { TextField, Button, Grid, Container, Box } from "@mui/material";
 import { edited, save{{domainName}} } from "./{{domainCamelCase}}Slice";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 

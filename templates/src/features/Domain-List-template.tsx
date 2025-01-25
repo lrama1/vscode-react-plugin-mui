@@ -1,12 +1,13 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Button, Paper, TablePagination } from "@mui/material";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { fetch{{domainName}}s, pageChanged, sorted } from "./{{domainCamelCase}}sSlice";
 import { fetch{{domainName}}, new{{domainName}} } from "./{{domainCamelCase}}Slice";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 function {{domainName}}List() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const {
     entities: {{domainCamelCase}}s,
@@ -15,7 +16,7 @@ function {{domainName}}List() {
     page,
     sortField,
     sortOrder,
-  } = useSelector((state) => state.{{domainCamelCase}}s);
+  } = useAppSelector((state: RootState) => state.{{domainCamelCase}}s);
 
   const navigate = useNavigate();
 
@@ -23,12 +24,12 @@ function {{domainName}}List() {
     dispatch(fetch{{domainName}}s());
   }, [dispatch]);
 
-  function on{{domainName}}sChangePage(event, newPage) {
+  function on{{domainName}}sChangePage(_, newPage) {
     dispatch(pageChanged({ page:newPage, perPage }));
     dispatch(fetch{{domainName}}s());
   }
 
-  function onSort(event, property) {
+  function onSort(_, property) {
     const isAsc = sortField === property && sortOrder === 'asc';
     dispatch(sorted({ sortField: property, sortOrder: isAsc ? 'desc' : 'asc' }));
     dispatch(fetch{{domainName}}s());
@@ -55,10 +56,10 @@ function {{domainName}}List() {
           <TableHead>
           <TableRow>
           {{#each attributes}}
-            <TableCell sortDirection={sortField === '{{this.attributeName}}' ? sortOrder : false}>
+            <TableCell sortDirection={sortField === '{{this.attributeName}}' ? (sortOrder as 'asc' | 'desc' | undefined) : false}>
                 <TableSortLabel
                   active={sortField === '{{this.attributeName}}'}
-                  direction={sortField === '{{this.attributeName}}' ? sortOrder : 'asc'}
+                  direction={sortField === '{{this.attributeName}}' ?(sortOrder as 'asc' | 'desc') : 'asc'}
                   onClick={(event) => onSort(event, '{{this.attributeName}}')}
                 >
                   {{this.attributeName}}
@@ -71,7 +72,7 @@ function {{domainName}}List() {
           
           <TableBody>
           { {{domainCamelCase}}s.map(({{domainCamelCase}}) => (  
-            <TableRow key={ {{domainCamelCase}}.{{idAttribute}} }>
+            <TableRow key={ {{domainCamelCase}}.{{idAttribute}} as React.Key }>
             {{#each attributes}}            
               <TableCell>
                 {{#if (eq this.dataType "Boolean")}}
